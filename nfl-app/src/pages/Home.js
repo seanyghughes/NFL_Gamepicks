@@ -1,13 +1,13 @@
-import React from 'react'
-import NFLlogo from '../NFLlogo.svg';
+import React from 'react';
 
 function Home() {
   return (
     <div>
-        <h1>Welcome to NFL Gamepicks</h1>
-        <p>
-            <img src={NFLlogo} className="NFLlogo" alt="NFLlogo" />
-        </p>
+        <h1>Welcome to Gamepicks</h1>
+        <div className='login-form'>
+            <button>Signup    
+            </button>
+        </div>
     </div>
   )
 }

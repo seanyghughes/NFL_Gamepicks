@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import NFLlogo from '../NFLlogo.svg';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,9 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
+      <Link to="/" className="navbar-logo" onClick={closeMenu}>
+          <img src={NFLlogo} alt="NFL logo" className="navbar-logo-img" />
+        </Link>
         <div className={`navbar-menu ${isOpen ? 'open' : ''}`}>
           <li className="navbar-item">
             <Link to="/" className="navbar-link" onClick={closeMenu}>
