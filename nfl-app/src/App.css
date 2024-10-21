@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.Game-Selection button {
+  color: white;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  margin: 10px
+}
+
+button :hover {
+  color: blue;
+}
+
+
