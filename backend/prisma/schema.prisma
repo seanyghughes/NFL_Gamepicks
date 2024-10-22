@@ -31,7 +31,8 @@ model Users {
 
 model Picks {
   id          Int      @id @default(autoincrement())
-  team_id     String
+  team_id     Int
+  team        Teams     @relation(fields: [team_id], references: [id])
   user_id     Int
   user        Users     @relation(fields: [user_id], references: [id])
   game_id     Int
@@ -63,5 +64,6 @@ model Teams {
   updated_at DateTime @updatedAt
   home_games Games[] @relation("HomeTeam")
   road_games Games[] @relation("RoadTeam")
+  picks Picks[]
 }
 

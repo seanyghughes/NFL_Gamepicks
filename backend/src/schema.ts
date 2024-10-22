@@ -3,7 +3,8 @@ import { gql } from "apollo-server";
 export const typeDefs = gql`
     # Queries
     type Query {
-        users: [User!]!
+        hello: String
+        users: [Users!]!
         picks: [Picks!]!
         teams: [Teams!]!
         games: [Games!]!
@@ -11,14 +12,14 @@ export const typeDefs = gql`
 
     # Mutations
     type Mutation {
-        createUser(name: String!, email: String!, password: String!): User!
-        createPick(team_id: String!, user_id: Int!, game_id: Int!): Picks!
-        createTeam(name: String!, location: String!, division: String!, conference: String!): Teams!
-        createGame(home_team_id: Int!, road_team_id: Int!, stadium: String!, time: String!): Games!
+        userCreate(name: String!, email: String!, password: String!): UserPayload!
+        pickCreate(team_id: Int!, user_id: Int!, game_id: Int!): PickPayload!
+        teamCreate(name: String!, location: String!, division: String!, conference: String!): Teams!
+        gameCreate(home_team_id: Int!, road_team_id: Int!, stadium: String!, time: String!): Games!
     }
 
     # User Type
-    type User {
+    type Users {
         id: ID!
         name: String!
         email: String!
@@ -30,12 +31,13 @@ export const typeDefs = gql`
     # Picks Type
     type Picks {
         id: ID!
-        team_id: String!
+        team_id: Int!
         user_id: Int!
-        user: User!
+        user: Users!
         game_id: Int!
         created_at: String!
         updated_at: String!
+        teams: Teams!
     }
 
     # Teams Type
@@ -47,8 +49,8 @@ export const typeDefs = gql`
         conference: String!
         created_at: String!
         updated_at: String!
-        home_games: [Games!]!
-        road_games: [Games!]!
+        home_games: [Games]
+        road_games: [Games]
     }
 
     # Games Type
@@ -62,5 +64,19 @@ export const typeDefs = gql`
         time: String!
         home_team: Teams!
         road_team: Teams!
+    }
+
+    type UserError {
+        message: String!
+    }
+
+    type PickPayload {
+        userErrors: [UserError!]!
+        pick: Picks
+    }
+
+    type UserPayload {
+        userErrors: [UserError!]!
+        user: Users
     }
 `;
