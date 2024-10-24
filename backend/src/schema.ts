@@ -12,10 +12,10 @@ export const typeDefs = gql`
 
     # Mutations
     type Mutation {
-        userCreate(name: String!, email: String!, password: String!): UserPayload!
+        userCreate(user: UserInput! ): UserPayload!
+        userUpdate(user_id: ID!, user: UserInput): UserPayload!
         pickCreate(team_id: Int!, user_id: Int!, game_id: Int!): PickPayload!
         teamCreate(name: String!, location: String!, division: String!, conference: String!): Teams!
-        gameCreate(home_team_id: Int!, road_team_id: Int!, stadium: String!, time: String!): Games!
     }
 
     # User Type
@@ -44,7 +44,7 @@ export const typeDefs = gql`
     type Teams {
         id: ID!
         name: String!
-        location: String!
+        geo: String!
         division: String!
         conference: String!
         created_at: String!
@@ -62,8 +62,8 @@ export const typeDefs = gql`
         road_team_id: Int!
         stadium: String!
         time: String!
-        home_team: Teams!
-        road_team: Teams!
+        home_team: Teams
+        road_team: Teams
     }
 
     type UserError {
@@ -78,5 +78,11 @@ export const typeDefs = gql`
     type UserPayload {
         userErrors: [UserError!]!
         user: Users
+    }
+
+    input UserInput {
+        name: String
+        email: String
+        password: String
     }
 `;

@@ -1,25 +1,53 @@
 import React from 'react';
+import { gql, useQuery } from '@apollo/client'
 
 // import StandingsIframe from '../components/StandingsIframe';
 
-function Games() {
-  return (
-    <div>
-      <h1>Games</h1>
-      <div className='Game-Selection'>
-            <form> Game 1:
-              <img src='nfl-app/src/images/new-england-patriots-logo-transparent.png' alt='New England Patriots'/>
-              <button>New England Patriots</button>
-              <img src='/Users/seanhughes/Desktop/GitHub/NFL_Gamepicks/nfl-app/buffalo-bills-logo-transparent.png' alt='Buffalo Bills'/>
-              <button>Buffalo Bills</button>
-            </form>
-            <form> Game 2: 
-              <button>Green Bay Packers</button>
-              <button>Kansas City Chiefs</button>
-            </form>
-        </div>
-    </div>
+const GET_POSTS = gql`
+  query {
+  games{
+    week
+    time
+    stadium
     
+    road_team {
+      name
+    }
+    home_team {
+      name
+    }
+  }
+}
+`
+
+function Games() {
+  const { data, error, loading } = useQuery(GET_POSTS);
+
+  console.log({
+    data, 
+    error, 
+    loading,
+  });
+
+  if(error) return <div>Error Page</div>
+
+  if(loading) return <div>Loading...</div>
+
+  const { games } = data
+
+  return (
+  
+    <div>
+      {games.map(game => {
+        return (
+          <Games 
+            week={game.week} 
+            stadium={game.stadium}
+            time={game.time}
+          />
+        );
+      })}
+    </div>
   )
 }
 

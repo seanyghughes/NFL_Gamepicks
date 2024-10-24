@@ -14,7 +14,7 @@ interface PickPayloadType {
     pick: Picks | null
 }
 
-interface UserCreateArgs {
+interface UserArgs {
     name: string
     email: string
     password: string 
@@ -59,9 +59,11 @@ export const Mutation = {
 
     userCreate: async (
         _: any, 
-        { name, email, password }: UserCreateArgs, 
+        { user }: { user: UserArgs }, 
         { prisma } : Context
     ): Promise<UserPayloadType> => {
+
+        const { name, email, password } = user
 
         if(!name || !email || !password){
             return {
@@ -72,7 +74,7 @@ export const Mutation = {
             }
         }
         
-        const user = await prisma.users.create({
+        const createdUser = await prisma.users.create({
             data: {
                 name,
                 email,
@@ -82,7 +84,7 @@ export const Mutation = {
 
         return {
             userErrors: [],
-            user
+            user: createdUser
             
         }
     },

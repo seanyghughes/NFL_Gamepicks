@@ -17,6 +17,10 @@ export const Query = {
 
     games: async (_: any, __: any, { prisma } : Context) => {
         const games = await prisma.games.findMany({
+            include: {
+                home_team: true,
+                road_team: true
+            },
             orderBy: [{
                 time: "asc"
             }]
@@ -40,13 +44,5 @@ export const Query = {
             }]
         });
         return picks;
-    }
-
-    //teams: async (_: any, __: any, {prisma}: Context) => {
-      //  const teams = await prisma.teams.findMany({
-        //    orderBy: [{
-          //      id: "asc"
-            //}]
-        //})
-    //}
+    },
 }
