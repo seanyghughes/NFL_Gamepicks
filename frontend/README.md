@@ -1,70 +1,221 @@
-# Getting Started with Create React App
+# NFL Game Picks Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based web application for NFL game pick'em contests with user authentication, league management, and real-time statistics.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication**: Secure login/signup with JWT tokens
+- **Game Picks**: Make picks for NFL games with real-time validation
+- **League System**: Create and join leagues to compete with friends
+- **Statistics Dashboard**: Track performance with detailed analytics
+- **Responsive Design**: Mobile-friendly interface
+- **Real-time Updates**: Live score tracking and standings
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js (v16 or higher)
+- npm or yarn
+- Backend API running (see backend README)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup Instructions
 
-### `npm test`
+### 1. Install Dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
 
-### `npm run build`
+### 2. Configure API Endpoint
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Update the GraphQL endpoint in your Apollo Client configuration if needed. The default assumes the backend is running on `http://localhost:4000`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Start Development Server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm start
+```
 
-### `npm run eject`
+The application will be available at `http://localhost:3000`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+frontend/
+├── public/
+│   ├── index.html
+│   └── images/
+├── src/
+│   ├── components/
+│   │   ├── Navbar.js          # Navigation with auth
+│   │   └── BottomNavbar.js    # Mobile navigation
+│   ├── pages/
+│   │   ├── Home.js            # Landing page
+│   │   ├── Login.js           # Authentication
+│   │   ├── Signup.js          # User registration
+│   │   ├── Games.js           # Game picks interface
+│   │   ├── Stats.js           # Statistics dashboard
+│   │   └── League.js          # League management
+│   ├── images/                # Team logos and assets
+│   ├── App.js                 # Main app component
+│   └── index.js               # Entry point
+└── package.json
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Key Components
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Authentication
+- **Login Page**: User authentication with email/password
+- **Signup Page**: New user registration with validation
+- **JWT Token Management**: Automatic token storage and refresh
 
-## Learn More
+### Game Picks
+- **Games Page**: Display all NFL games with pick interface
+- **Pick Validation**: Prevent duplicate picks and enforce deadlines
+- **Real-time Status**: Show pick results after games are finalized
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### League System
+- **League Creation**: Create private leagues with custom settings
+- **League Joining**: Browse and join existing leagues
+- **Standings**: Real-time league rankings and statistics
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Statistics
+- **Personal Stats**: Individual performance metrics
+- **Weekly Leaderboards**: Compare performance with other users
+- **Pick History**: Track all past picks and results
 
-### Code Splitting
+## Styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The application uses:
+- **CSS Modules**: Component-specific styling
+- **Responsive Design**: Mobile-first approach
+- **Modern UI**: Clean, professional interface
+- **NFL Branding**: Official colors and styling
 
-### Analyzing the Bundle Size
+## State Management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Local Storage**: User authentication tokens
+- **Apollo Client**: GraphQL state management
+- **React Hooks**: Component state management
 
-### Making a Progressive Web App
+## API Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The frontend communicates with the backend through GraphQL queries and mutations:
 
-### Advanced Configuration
+### Authentication
+```graphql
+mutation Login($email: String!, $password: String!) {
+  userLogin(email: $email, password: $password) {
+    user { id name email }
+    token
+  }
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Game Picks
+```graphql
+mutation CreatePick($team_id: Int!, $user_id: Int!, $game_id: Int!) {
+  pickCreate(team_id: $team_id, user_id: $user_id, game_id: $game_id) {
+    pick { id team_id game_id }
+  }
+}
+```
 
-### Deployment
+### Leagues
+```graphql
+query GetLeagues {
+  leagues {
+    id name description
+    userLeagues { user { name } }
+  }
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Development
 
-### `npm run build` fails to minify
+### Adding New Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Create Components**: Add new React components in `src/components/`
+2. **Add Pages**: Create new pages in `src/pages/`
+3. **Update Routes**: Add routes in `App.js`
+4. **Style Components**: Create corresponding CSS files
+5. **Test Integration**: Ensure GraphQL queries work correctly
+
+### Code Style
+
+- Use functional components with hooks
+- Implement proper error handling
+- Add loading states for better UX
+- Follow responsive design principles
+- Use semantic HTML elements
+
+### Testing
+
+```bash
+# Run tests
+npm test
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+## Deployment
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Environment Variables
+
+Create a `.env` file for production settings:
+
+```env
+REACT_APP_API_URL=https://your-api-domain.com
+REACT_APP_ENVIRONMENT=production
+```
+
+### Deployment Options
+
+1. **Netlify**: Connect GitHub repository for automatic deployment
+2. **Vercel**: Easy deployment with built-in optimizations
+3. **AWS S3**: Static hosting with CloudFront
+4. **Firebase Hosting**: Google's hosting solution
+
+## Troubleshooting
+
+### Common Issues
+
+1. **API Connection Errors**
+   - Verify backend server is running
+   - Check GraphQL endpoint configuration
+   - Ensure CORS is properly configured
+
+2. **Authentication Issues**
+   - Clear localStorage and re-login
+   - Check JWT token expiration
+   - Verify token format in requests
+
+3. **Build Errors**
+   - Clear node_modules and reinstall
+   - Check for syntax errors in components
+   - Verify all imports are correct
+
+### Performance Optimization
+
+1. **Code Splitting**: Use React.lazy() for route-based splitting
+2. **Image Optimization**: Compress and optimize team logos
+3. **Bundle Analysis**: Use webpack-bundle-analyzer
+4. **Caching**: Implement proper cache headers
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

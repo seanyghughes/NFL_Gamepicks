@@ -1,0 +1,299 @@
+.league-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.league-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.league-header h1 {
+  color: #333;
+  margin: 0;
+}
+
+.create-league-btn {
+  background: #2a5298;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.create-league-btn:hover {
+  background: #1e3c72;
+}
+
+.login-prompt {
+  color: #666;
+}
+
+.login-prompt a {
+  color: #2a5298;
+  text-decoration: none;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.success-message {
+  background: #e8f5e8;
+  color: #2e7d32;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.create-league-form {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  border: 1px solid #e0e0e0;
+}
+
+.create-league-form h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2a5298;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.create-league-form button {
+  background: #2a5298;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.create-league-form button:hover:not(:disabled) {
+  background: #1e3c72;
+}
+
+.create-league-form button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.leagues-section {
+  margin-bottom: 30px;
+}
+
+.leagues-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.leagues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.league-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s;
+}
+
+.league-card:hover {
+  transform: translateY(-2px);
+}
+
+.league-info h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.league-description {
+  color: #666;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.league-creator {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.league-members {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.league-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.join-btn,
+.view-standings-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.join-btn {
+  background: #2a5298;
+  color: white;
+}
+
+.join-btn:hover:not(:disabled) {
+  background: #1e3c72;
+}
+
+.view-standings-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.view-standings-btn:hover {
+  background: #45a049;
+}
+
+.standings-section {
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.standings-section h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.standings-table {
+  overflow-x: auto;
+}
+
+.standings-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.standings-table th,
+.standings-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.standings-table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.standings-table tr:hover {
+  background: #f8f9fa;
+}
+
+.close-standings-btn {
+  background: #666;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.close-standings-btn:hover {
+  background: #555;
+}
+
+.loading {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .league-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .leagues-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .league-actions {
+    flex-direction: column;
+  }
+  
+  .standings-table {
+    font-size: 14px;
+  }
+  
+  .standings-table th,
+  .standings-table td {
+    padding: 8px;
+  }
+} 

@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -11,6 +14,12 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.App-main {
+  flex: 1;
+  padding-top: 20px;
+  background-color: #f5f5f5;
 }
 
 .App-header {
@@ -49,4 +58,21 @@ button :hover {
   color: blue;
 }
 
+.games-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px; /* Space between games */
+  overflow-x: auto; /* Allows horizontal scrolling */
+  padding: 10px;
+}
+
+.game {
+  min-width: 200px;
+  background-color: #242424;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  white-space: nowrap; /* Prevent text wrapping */
+}
 

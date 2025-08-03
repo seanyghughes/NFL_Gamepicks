@@ -6,23 +6,27 @@ import Games from './pages/Games';
 import Home from './pages/Home';
 import Stats from './pages/Stats';
 import League from './pages/League';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/games' element={<Games/>} />
-          <Route path='/stats' element={<Stats/>} />
-          <Route path='/league' element={<League/>} />
-        </Routes>
         <Navbar />
-        </header>
+        <main className="App-main">
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/games' element={<Games/>} />
+            <Route path='/stats' element={<Stats/>} />
+            <Route path='/league' element={<League/>} />
+            <Route path='/signup' element={<Signup/>} />
+            <Route path='/login' element={<Login/>} />
+          </Routes>
+        </main>
         <BottomNavbar />
       </div>
-      </Router>
+    </Router>
   );
 }
 

@@ -9,15 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
-
-//model Leagues {
-  //id Int @id @default(autoincrement())
-  //name String @unique
-  //users User[] @relation("")
-//}
 
 model Users {
   id Int @id @default(autoincrement())
@@ -27,6 +21,31 @@ model Users {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   picks Picks[]
+  userLeagues UserLeagues[]
+  weeklyScores WeeklyScores[]
+  createdLeagues Leagues[] @relation("LeagueCreator")
+}
+
+model Leagues {
+  id Int @id @default(autoincrement())
+  name String
+  description String?
+  created_by Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  userLeagues UserLeagues[]
+  createdByUser Users @relation("LeagueCreator", fields: [created_by], references: [id])
+}
+
+model UserLeagues {
+  id Int @id @default(autoincrement())
+  user_id Int
+  league_id Int
+  joined_at DateTime @default(now())
+  user Users @relation(fields: [user_id], references: [id])
+  league Leagues @relation(fields: [league_id], references: [id])
+  
+  @@unique([user_id, league_id])
 }
 
 model Picks {
@@ -36,10 +55,12 @@ model Picks {
   user_id     Int
   user        Users     @relation(fields: [user_id], references: [id])
   game_id     Int
+  game        Games     @relation(fields: [game_id], references: [id])
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+  
+  @@unique([user_id, game_id])
 }
-
 
 model Games {
   id Int @id @default(autoincrement())
@@ -49,8 +70,13 @@ model Games {
   road_team_id Int
   stadium String
   time DateTime
+  winning_team_id Int?
+  is_finalized Boolean @default(false)
+  updated_at DateTime @updatedAt
   home_team    Teams   @relation("HomeTeam", fields: [home_team_id], references: [id])
   road_team    Teams   @relation("RoadTeam", fields: [road_team_id], references: [id])
+  winning_team Teams?  @relation("WinningTeam", fields: [winning_team_id], references: [id])
+  picks Picks[]
 }
 
 model Teams {
@@ -60,10 +86,26 @@ model Teams {
   stadium String
   division String
   conference String
+  logo_url String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   home_games Games[] @relation("HomeTeam")
   road_games Games[] @relation("RoadTeam")
+  winning_games Games[] @relation("WinningTeam")
   picks Picks[]
+}
+
+model WeeklyScores {
+  id Int @id @default(autoincrement())
+  user_id Int
+  year Int
+  week Int
+  correct_picks Int @default(0)
+  total_picks Int @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user Users @relation(fields: [user_id], references: [id])
+  
+  @@unique([user_id, year, week])
 }
 
