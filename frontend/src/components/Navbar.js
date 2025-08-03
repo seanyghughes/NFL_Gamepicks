@@ -51,6 +51,11 @@ function Navbar() {
             </Link>
           </li>
           <li className="navbar-item">
+            <Link to="/results" className="navbar-link" onClick={closeMenu}>
+              Results
+            </Link>
+          </li>
+          <li className="navbar-item">
             <Link to="/stats" className="navbar-link" onClick={closeMenu}>
               Stats
             </Link>

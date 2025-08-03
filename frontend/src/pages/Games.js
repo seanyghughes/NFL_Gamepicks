@@ -79,6 +79,8 @@ const GET_GAMES = gql`
       week
       time
       stadium
+      home_score
+      road_score
       is_finalized
       road_team {
         id
@@ -225,6 +227,9 @@ function Game({ game, onPick, currentUser, hasGameStarted, currentWeek }) {
             <img src={roadTeamLogo} alt={`${game.road_team.name} logo`} className="team-logo" />
           )}
           <span className="team-name">{game.road_team.name}</span>
+          {game.home_score !== null && game.road_score !== null && (
+            <span className="score">{game.road_score}</span>
+          )}
         </div>
         
         <div className="vs">@</div>
@@ -234,6 +239,9 @@ function Game({ game, onPick, currentUser, hasGameStarted, currentWeek }) {
             <img src={homeTeamLogo} alt={`${game.home_team.name} logo`} className="team-logo" />
           )}
           <span className="team-name">{game.home_team.name}</span>
+          {game.home_score !== null && game.road_score !== null && (
+            <span className="score">{game.home_score}</span>
+          )}
         </div>
       </div>
 

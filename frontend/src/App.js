@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import BottomNavbar from './components/BottomNavbar';
 import Games from './pages/Games';
+import Results from './pages/Results';
 import Home from './pages/Home';
 import Stats from './pages/Stats';
 import League from './pages/League';
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/games' element={<Games/>} />
+            <Route path='/results' element={<Results/>} />
             <Route path='/stats' element={<Stats/>} />
             <Route path='/league' element={<League/>} />
             <Route path='/signup' element={<Signup/>} />

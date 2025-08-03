@@ -37,6 +37,29 @@ export const Query = {
         return games;
     },
 
+    gameResults: async (_: any, { week }: { week?: number }, { prisma }: Context) => {
+        const whereClause = week ? { week: week } : {};
+        
+        const games = await prisma.games.findMany({
+            where: whereClause,
+            include: {
+                home_team: true,
+                road_team: true,
+                winning_team: true,
+                picks: {
+                    include: {
+                        user: true,
+                        team: true
+                    }
+                }
+            },
+            orderBy: [{
+                time: "asc"
+            }]
+        });
+        return games;
+    },
+
     users: async (_: any, __: any, { prisma }: Context) => {
         const users = await prisma.users.findMany({
             include: {

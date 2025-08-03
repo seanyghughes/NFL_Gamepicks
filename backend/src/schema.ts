@@ -8,13 +8,14 @@ export const typeDefs = gql`
         picks: [Picks!]!
         teams: [Teams!]!
         games(week: Int): [Games!]!
+        gameResults(week: Int): [Games!]!
         leagues: [Leagues!]!
         userPicks(userId: ID!): [Picks!]!
-            weeklyScores(year: Int!, week: Int!): [WeeklyScores!]!
-    leagueStandings(leagueId: ID!): [LeagueStanding!]!
-    seasonLeaderboard(year: Int!): [SeasonStanding!]!
-    userTeamAnalysis(userId: ID!): TeamAnalysis!
-    currentUser: Users
+        weeklyScores(year: Int!, week: Int!): [WeeklyScores!]!
+        leagueStandings(leagueId: ID!): [LeagueStanding!]!
+        seasonLeaderboard(year: Int!): [SeasonStanding!]!
+        userTeamAnalysis(userId: ID!): TeamAnalysis!
+        currentUser: Users
     }
 
     # Mutations
@@ -28,6 +29,7 @@ export const typeDefs = gql`
         leagueCreate(name: String!, description: String): LeaguePayload!
         leagueJoin(leagueId: ID!): LeaguePayload!
         finalizeGame(gameId: ID!, winningTeamId: ID!): GamePayload!
+        updateGameScore(gameId: ID!, homeScore: Int!, roadScore: Int!): GamePayload!
     }
 
     # User Type
@@ -82,6 +84,8 @@ export const typeDefs = gql`
         stadium: String!
         time: String!
         winning_team_id: Int
+        home_score: Int
+        road_score: Int
         is_finalized: Boolean!
         home_team: Teams
         road_team: Teams

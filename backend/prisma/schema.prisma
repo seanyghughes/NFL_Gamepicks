@@ -71,6 +71,8 @@ model Games {
   stadium String
   time DateTime
   winning_team_id Int?
+  home_score Int?
+  road_score Int?
   is_finalized Boolean @default(false)
   updated_at DateTime @updatedAt
   home_team    Teams   @relation("HomeTeam", fields: [home_team_id], references: [id])

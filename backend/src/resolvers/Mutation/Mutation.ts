@@ -288,5 +288,99 @@ export const Mutation = {
             userErrors: [],
             game
         };
+    },
+
+    updateGameScore: async (
+        _: any,
+        { gameId, homeScore, roadScore }: { gameId: string; homeScore: number; roadScore: number },
+        { prisma }: Context
+    ): Promise<GamePayloadType> => {
+        // Determine winning team based on scores
+        let winningTeamId = null;
+        if (homeScore > roadScore) {
+            // Home team wins
+            const game = await prisma.games.findUnique({
+                where: { id: parseInt(gameId) }
+            });
+            if (game) {
+                winningTeamId = game.home_team_id;
+            }
+        } else if (roadScore > homeScore) {
+            // Road team wins
+            const game = await prisma.games.findUnique({
+                where: { id: parseInt(gameId) }
+            });
+            if (game) {
+                winningTeamId = game.road_team_id;
+            }
+        }
+        // If scores are equal, winningTeamId remains null (tie)
+
+        const game = await prisma.games.update({
+            where: { id: parseInt(gameId) },
+            data: {
+                home_score: homeScore,
+                road_score: roadScore,
+                winning_team_id: winningTeamId,
+                is_finalized: true
+            },
+            include: {
+                home_team: true,
+                road_team: true,
+                winning_team: true,
+                picks: {
+                    include: {
+                        user: true,
+                        team: true
+                    }
+                }
+            }
+        });
+
+        // If there's a winning team, calculate weekly scores
+        if (winningTeamId) {
+            const picks = await prisma.picks.findMany({
+                where: { game_id: parseInt(gameId) },
+                include: {
+                    user: true,
+                    team: true
+                }
+            });
+
+            for (const pick of picks) {
+                const isCorrect = pick.team_id === winningTeamId;
+                
+                // Update or create weekly score
+                await prisma.weeklyScores.upsert({
+                    where: {
+                        user_id_year_week: {
+                            user_id: pick.user_id,
+                            year: game.year,
+                            week: game.week
+                        }
+                    },
+                    update: {
+                        correct_picks: {
+                            increment: isCorrect ? 1 : 0
+                        },
+                        total_picks: {
+                            increment: 1
+                        }
+                    },
+                    create: {
+                        user_id: pick.user_id,
+                        year: game.year,
+                        week: game.week,
+                        correct_picks: isCorrect ? 1 : 0,
+                        total_picks: 1
+                    }
+                });
+            }
+        }
+
+        return {
+            userErrors: [],
+            game
+        };
     }
 };
