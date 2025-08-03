@@ -5,7 +5,8 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "build",
+        "buildCommand": "npm run vercel-build"
       }
     }
   ],
@@ -32,6 +33,8 @@
     }
   ],
   "env": {
-    "NODE_VERSION": "18"
+    "NODE_VERSION": "18.17.0",
+    "GENERATE_SOURCEMAP": "false",
+    "INLINE_RUNTIME_CHUNK": "false"
   }
 } 

@@ -16,7 +16,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.24.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "vercel-build": "react-scripts build"
+    "vercel-build": "node vercel-build.js"
   },
   "eslintConfig": {
     "extends": [
@@ -46,5 +46,13 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "resolutions": {
+    "schema-utils": "4.2.0",
+    "terser": "5.26.0",
+    "webpack": "5.88.0"
+  },
+  "overrides": {
+    "schema-utils": "4.2.0"
   }
 }
