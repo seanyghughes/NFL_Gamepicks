@@ -178,9 +178,9 @@ REACT_APP_ENVIRONMENT=production
 ### Deployment Options
 
 1. **Netlify**: Connect GitHub repository for automatic deployment
-2. **Vercel**: Easy deployment with built-in optimizations
-3. **AWS S3**: Static hosting with CloudFront
-4. **Firebase Hosting**: Google's hosting solution
+2. **AWS S3**: Static hosting with CloudFront
+3. **Firebase Hosting**: Google's hosting solution
+4. **GitHub Pages**: Free static hosting
 
 ## Troubleshooting
 
